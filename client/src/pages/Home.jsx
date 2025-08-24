@@ -19,6 +19,7 @@ const Home = () => {
         p: { xs: 2, md: 4 },
       }}
     >
+      {/* Header */}
       <Box
         sx={{
           display: "flex",
@@ -29,57 +30,48 @@ const Home = () => {
         }}
       >
         <Leaf size={48} color="#4caf50" />
-        <Typography 
-          variant="h3" 
-          sx={{ 
+        <Typography
+          variant="h3"
+          sx={{
             fontSize: { xs: "2rem", md: "3rem" },
-            fontWeight: "bold" 
+            fontWeight: "bold",
           }}
         >
           Welcome to Urvann Plant Store
         </Typography>
       </Box>
-      
-      <Typography 
-        variant="h6" 
-        color="text.secondary" 
+
+      <Typography
+        variant="h6"
+        color="text.secondary"
         gutterBottom
         sx={{
           fontSize: { xs: "1.1rem", md: "1.25rem" },
           maxWidth: "600px",
-          px: 1
+          px: 1,
         }}
       >
         Browse, search, and filter plants easily. Admins can add new plants to the store.
       </Typography>
 
-      <Box 
-        sx={{ 
-          mt: 3, 
-          display: "flex", 
+      {/* Buttons */}
+      <Box
+        sx={{
+          mt: 3,
+          display: "flex",
           flexDirection: { xs: "column", sm: "row" },
-          gap: 2, 
+          gap: 2,
           justifyContent: "center",
           width: { xs: "100%", sm: "auto" },
-          maxWidth: { xs: "300px", sm: "none" }
+          maxWidth: { xs: "300px", sm: "none" },
         }}
       >
-        <Button 
-          component={Link} 
-          to="/plants" 
-          variant="contained" 
-          color="success"
-          startIcon={<Eye size={20} />}
-          sx={{ py: { xs: 1.5, md: 1 } }}
-        >
-          View All Plants
-        </Button>
-
+        {/* If user NOT logged in → show login/register */}
         {!user && (
-          <Button 
-            component={Link} 
-            to="/login" 
-            variant="outlined" 
+          <Button
+            component={Link}
+            to="/login"
+            variant="outlined"
             color="primary"
             startIcon={<LogIn size={20} />}
             sx={{ py: { xs: 1.5, md: 1 } }}
@@ -88,11 +80,26 @@ const Home = () => {
           </Button>
         )}
 
+        {/* If user logged in → always show View All Plants */}
+        {user && (
+          <Button
+            component={Link}
+            to="/plants"
+            variant="contained"
+            color="success"
+            startIcon={<Eye size={20} />}
+            sx={{ py: { xs: 1.5, md: 1 } }}
+          >
+            View All Plants
+          </Button>
+        )}
+
+        {/* If user is admin → also show Add Plant */}
         {user && user.role === "admin" && (
-          <Button 
-            component={Link} 
-            to="/add-plant" 
-            variant="contained" 
+          <Button
+            component={Link}
+            to="/add-plant"
+            variant="contained"
             color="secondary"
             startIcon={<Plus size={20} />}
             sx={{ py: { xs: 1.5, md: 1 } }}
