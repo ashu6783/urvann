@@ -52,9 +52,10 @@ const Home = () => {
         }}
       >
         Browse, search, and filter plants easily. Admins can add new plants to the store.
+        <span className="text-red-500 font-semibold">Note:For test purpose</span>
+        For creating admin use <span className="text-green-800 underline">urvann</span> as ADMIN_KEY <div className=""></div>
       </Typography>
 
-      {/* Buttons */}
       <Box
         sx={{
           mt: 3,
@@ -66,7 +67,6 @@ const Home = () => {
           maxWidth: { xs: "300px", sm: "none" },
         }}
       >
-        {/* If user NOT logged in → show login/register */}
         {!user && (
           <Button
             component={Link}
@@ -80,7 +80,6 @@ const Home = () => {
           </Button>
         )}
 
-        {/* If user logged in → always show View All Plants */}
         {user && (
           <Button
             component={Link}
@@ -94,7 +93,6 @@ const Home = () => {
           </Button>
         )}
 
-        {/* If user is admin → also show Add Plant */}
         {user && user.role === "admin" && (
           <Button
             component={Link}
