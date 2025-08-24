@@ -8,9 +8,18 @@ const PlantsPage = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const [searchTerm, setSearchTerm] = useState("");
+    const [debouncedSearch, setDebouncedSearch]= useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
+
+  useEffect(()=>{
+    const handler = setTimeout(()=>{
+      setDebouncedSearch(searchTerm);
+    },300);
+    return ()=>{
+      clearTimeout(handler);
+    }
+  },[searchTerm]);
 
   useEffect(() => {
     const fetchPlants = async () => {
@@ -40,9 +49,9 @@ const PlantsPage = () => {
   useEffect(() => {
     let results = plants;
 
-    if (searchTerm) {
+    if (debouncedSearch) {
       results = results.filter((p) =>
-        p.name.toLowerCase().includes(searchTerm.toLowerCase())
+        p.name.toLowerCase().includes(debouncedSearch.toLowerCase())
       );
     }
     if (categoryFilter !== "all") {
@@ -52,7 +61,7 @@ const PlantsPage = () => {
     }
 
     setFilteredPlants(results);
-  }, [searchTerm, categoryFilter, plants]);
+  }, [debouncedSearch, categoryFilter, plants]);
 
   if (loading)
     return (
@@ -71,7 +80,6 @@ const PlantsPage = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Fixed Search & Filter Header - Below Navbar */}
       <div className="sticky top-16 bg-white z-40 border-b border-gray-200 shadow-sm">
         <div className="p-4 flex flex-wrap gap-4 max-w-7xl mx-auto">
           <input
@@ -96,7 +104,6 @@ const PlantsPage = () => {
         </div>
       </div>
 
-      {/* Scrollable Plant Grid Content */}
       <div className="p-4">
         <PlantGrid plants={filteredPlants} />
       </div>

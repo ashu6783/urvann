@@ -1,4 +1,3 @@
-// src/components/PlantCard.jsx
 import React from "react";
 import { Card, CardContent, CardMedia, Typography, Chip, Box } from "@mui/material";
 
