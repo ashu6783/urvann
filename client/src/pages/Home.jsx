@@ -68,7 +68,7 @@ const Home = () => {
           component={Link} 
           to="/plants" 
           variant="contained" 
-          color="primary"
+          color="success"
           startIcon={<Eye size={20} />}
           sx={{ py: { xs: 1.5, md: 1 } }}
         >
