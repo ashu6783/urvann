@@ -87,9 +87,12 @@ client/
       PlantsPage.jsx
       PlantDetails.jsx
       AddPlant.jsx
-      LoginRegister.jsx
+      Login.jsx
     App.jsx
 server/
+  config/
+    db.js
+    seeding.js
   controllers/
     plantController.js
     authController.js
@@ -101,6 +104,8 @@ server/
   routes/
     plantRoutes.js
     authRoutes.js
+  utils/
+    seed.js
   index.js
 
 
