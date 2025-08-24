@@ -12,27 +12,31 @@ const generateToken = (user)=>{
     );
 };
 
-export const register = async (req,res) =>{
-    try {
-        const {username,email,password,role,secretCode} = req.body;
+export const register = async (req, res) => {
+  try {
+    const { username, email, password, role, secretCode } = req.body;
 
-        const existingUser = await User.findOne({email});
-        if(existingUser) return res.status(400).json({message:"User already exists"});
+    const existingUser = await User.findOne({ email });
+    if (existingUser) return res.status(400).json({ message: "User already exists" });
 
-        let assignedRole = "user";
-
-        if(role === "admin" && secretCode === process.env.ADMIN_SECRET){
-            assignedRole='admin';
-        }
-
-        const user = new User({username,email,password,role:assignedRole});
-        await user.save();
-
-         res.status(201).json({message:"User registered successfully", role:assignedRole});
-    } catch (error) {
-        res.status(500).json({message:error.message});
+    let assignedRole = "user";
+    if (role === "admin") {
+      if (secretCode && secretCode === process.env.ADMIN_SECRET) {
+        assignedRole = "admin";
+      } else {
+        return res.status(403).json({ message: "Invalid secret code for admin role" });
+      }
     }
-}
+
+    const user = new User({ username, email, password, role: assignedRole });
+    await user.save();
+
+    res.status(201).json({ message: "User registered successfully", role: assignedRole });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 export const login = async( req,res) =>{
     try {
