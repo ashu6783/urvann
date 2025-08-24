@@ -49,11 +49,12 @@ const Navbar = () => {
               <Home className="h-4 w-4" />
               <span>Home</span>
             </Link>
-
+            {user && (
             <Link to="/plants" className={navLinkClass} onClick={closeMenu}>
               <Trees className="h-4 w-4" />
               <span>Plants</span>
             </Link>
+            )}
 
             {user && user.role === "admin" && (
               <Link to="/add-plant" className={navLinkClass} onClick={closeMenu}>

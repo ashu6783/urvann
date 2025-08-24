@@ -3,6 +3,7 @@ configDotenv();
 import jwt from "jsonwebtoken";
 import User from "../modals/user.js";
 
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const generateToken = (user)=>{
     return jwt.sign(
