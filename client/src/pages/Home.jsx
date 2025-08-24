@@ -53,26 +53,52 @@ const Home = () => {
         Browse, search, and filter plants easily. Admins can also add new plants to the store.
       </Typography>
 
-      {/* Highlighted Note */}
-      <Paper
-        elevation={2}
-        sx={{
-          mt: 1,
-          p: 2,
-          borderLeft: "6px solid #4caf50",
-          maxWidth: "500px",
-          textAlign: "left",
-          backgroundColor: "#f9f9f9",
-        }}
-      >
-        <Typography variant="body1" sx={{ color: "error.main", fontWeight: "bold" }}>
-          Note: For testing purposes
-        </Typography>
-        <Typography variant="body2" sx={{ mt: 0.5 }}>
-          Use <span style={{ color: "#2e7d32", fontWeight: "600" }}>urvann</span> as the{" "}
-          <strong>ADMIN_KEY</strong> when creating an admin account.
-        </Typography>
-      </Paper>
+      {/* Info / Welcome Box */}
+      {!user && (
+        <Paper
+          elevation={2}
+          sx={{
+            mt: 1,
+            p: 2,
+            borderLeft: "6px solid #4caf50",
+            maxWidth: "500px",
+            textAlign: "left",
+            backgroundColor: "#f9f9f9",
+          }}
+        >
+          <Typography variant="body1" sx={{ color: "error.main", fontWeight: "bold" }}>
+            Note: For testing purposes
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 0.5 }}>
+            Use <span style={{ color: "#2e7d32", fontWeight: "600" }}>urvann</span> as the{" "}
+            <strong>ADMIN_KEY</strong> when creating an admin account.
+          </Typography>
+        </Paper>
+      )}
+
+      {user && (
+        <Paper
+          elevation={2}
+          sx={{
+            mt: 1,
+            p: 2,
+            borderLeft: "6px solid #4caf50",
+            maxWidth: "500px",
+            textAlign: "left",
+            backgroundColor: "#f9f9f9",
+          }}
+        >
+          <Typography variant="body1" sx={{ color: "success.main", fontWeight: "bold" }}>
+            Welcome back, {user.username}! 🎉
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 0.5 }}>
+            You are logged in as{" "}
+            <span style={{ color: user.role === "admin" ? "#d32f2f" : "#2e7d32", fontWeight: 600 }}>
+              {user.role.toUpperCase()}
+            </span>.
+          </Typography>
+        </Paper>
+      )}
 
       {/* Action Buttons */}
       <Box
@@ -115,7 +141,7 @@ const Home = () => {
             component={Link}
             to="/add-plant"
             variant="contained"
-            color="secondary"
+            color="outlined"
             startIcon={<Plus size={20} />}
             sx={{ minWidth: 180 }}
           >

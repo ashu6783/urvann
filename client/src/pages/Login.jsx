@@ -17,7 +17,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 
-// ✅ Schemas
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
@@ -61,7 +60,10 @@ const LoginRegister = () => {
     try {
       if (isRegister) {
         const res = await registerUser(data);
-        toast.success(res.data.message || "Registered successfully!");
+        toast.success(res.data.message || "Registered successfully!", {
+          duration: 3000,
+          style: { background: "#4caf50", color: "#fff" },
+        });
         setIsRegister(false);
         reset();
         navigate("/login");
@@ -69,12 +71,18 @@ const LoginRegister = () => {
         const res = await loginUser(data);
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
-        toast.success("Logged in successfully!");
+        toast.success("Logged in successfully!", {
+          duration: 3000,
+          style: { background: "#4caf50", color: "#fff" },
+        });
         reset();
         setTimeout(() => navigate("/"), 1000);
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || "Something went wrong");
+      toast.error(err.response?.data?.message || "Something went wrong", {
+        duration: 4000,
+        style: { background: "#f44336", color: "#fff" },
+      });
     }
   };
 
@@ -87,7 +95,6 @@ const LoginRegister = () => {
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-          {/* Username (register only) */}
           {isRegister && (
             <>
               <div className="relative">
@@ -107,9 +114,7 @@ const LoginRegister = () => {
 
               {/* Role selection */}
               <div>
-                <label className="block mb-1 font-medium text-gray-700">
-                  Role
-                </label>
+                <label className="block mb-1 font-medium text-gray-700">Role</label>
                 <select
                   {...formRegister("role")}
                   className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-400 focus:outline-none"
@@ -118,9 +123,7 @@ const LoginRegister = () => {
                   <option value="admin">Admin</option>
                 </select>
                 {errors.role && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.role.message}
-                  </p>
+                  <p className="text-red-500 text-sm mt-1">{errors.role.message}</p>
                 )}
               </div>
 
@@ -135,9 +138,7 @@ const LoginRegister = () => {
                     className="w-full border rounded-lg pl-10 pr-3 py-2 focus:ring-2 focus:ring-green-400 focus:outline-none"
                   />
                   {errors.secretCode && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.secretCode.message}
-                    </p>
+                    <p className="text-red-500 text-sm mt-1">{errors.secretCode.message}</p>
                   )}
                 </div>
               )}
@@ -175,9 +176,7 @@ const LoginRegister = () => {
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.password.message}
-              </p>
+              <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
             )}
           </div>
 
