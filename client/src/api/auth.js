@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = import.meta.env.VITE_BACKEND_URI;
+console.log(BASE_URL);
 
 export const registerUser = (userData) =>
   axios.post(`${BASE_URL}/auth/register`, userData);
