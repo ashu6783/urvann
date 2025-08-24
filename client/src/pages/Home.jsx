@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { Leaf, Eye, LogIn, Plus } from "lucide-react";
@@ -17,6 +17,7 @@ const Home = () => {
         minHeight: "80vh",
         textAlign: "center",
         p: { xs: 2, md: 4 },
+        gap: 3,
       }}
     >
       {/* Header */}
@@ -26,7 +27,6 @@ const Home = () => {
           flexDirection: { xs: "column", sm: "row" },
           alignItems: "center",
           gap: 2,
-          mb: 3,
         }}
       >
         <Leaf size={48} color="#4caf50" />
@@ -41,21 +41,40 @@ const Home = () => {
         </Typography>
       </Box>
 
+      {/* Sub Text */}
       <Typography
         variant="h6"
         color="text.secondary"
-        gutterBottom
         sx={{
           fontSize: { xs: "1.1rem", md: "1.25rem" },
-          maxWidth: "600px",
-          px: 1,
+          maxWidth: "650px",
         }}
       >
-        Browse, search, and filter plants easily. Admins can add new plants to the store.
-        <span className="text-red-500 font-semibold">Note:For test purpose</span>
-        For creating admin use <span className="text-green-800 underline">urvann</span> as ADMIN_KEY <div className=""></div>
+        Browse, search, and filter plants easily. Admins can also add new plants to the store.
       </Typography>
 
+      {/* Highlighted Note */}
+      <Paper
+        elevation={2}
+        sx={{
+          mt: 1,
+          p: 2,
+          borderLeft: "6px solid #4caf50",
+          maxWidth: "500px",
+          textAlign: "left",
+          backgroundColor: "#f9f9f9",
+        }}
+      >
+        <Typography variant="body1" sx={{ color: "error.main", fontWeight: "bold" }}>
+          Note: For testing purposes
+        </Typography>
+        <Typography variant="body2" sx={{ mt: 0.5 }}>
+          Use <span style={{ color: "#2e7d32", fontWeight: "600" }}>urvann</span> as the{" "}
+          <strong>ADMIN_KEY</strong> when creating an admin account.
+        </Typography>
+      </Paper>
+
+      {/* Action Buttons */}
       <Box
         sx={{
           mt: 3,
@@ -63,8 +82,6 @@ const Home = () => {
           flexDirection: { xs: "column", sm: "row" },
           gap: 2,
           justifyContent: "center",
-          width: { xs: "100%", sm: "auto" },
-          maxWidth: { xs: "300px", sm: "none" },
         }}
       >
         {!user && (
@@ -74,7 +91,7 @@ const Home = () => {
             variant="outlined"
             color="primary"
             startIcon={<LogIn size={20} />}
-            sx={{ py: { xs: 1.5, md: 1 } }}
+            sx={{ minWidth: 180 }}
           >
             Login / Register
           </Button>
@@ -87,7 +104,7 @@ const Home = () => {
             variant="contained"
             color="success"
             startIcon={<Eye size={20} />}
-            sx={{ py: { xs: 1.5, md: 1 } }}
+            sx={{ minWidth: 180 }}
           >
             View All Plants
           </Button>
@@ -100,7 +117,7 @@ const Home = () => {
             variant="contained"
             color="secondary"
             startIcon={<Plus size={20} />}
-            sx={{ py: { xs: 1.5, md: 1 } }}
+            sx={{ minWidth: 180 }}
           >
             Add New Plant
           </Button>
